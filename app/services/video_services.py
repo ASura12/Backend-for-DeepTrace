@@ -1,6 +1,6 @@
 import cv2
 import torch
-from app.model_loader import video_model
+from app.model_loader import video_model, video_model_error
 
 def preprocess_frame(frame):
     # Resize
@@ -19,6 +19,9 @@ def preprocess_frame(frame):
 
 
 def analyze_video(path):
+    if video_model is None:
+        return {"error": f"Video model unavailable: {video_model_error}"}
+
     cap = cv2.VideoCapture(path)
 
     predictions = []

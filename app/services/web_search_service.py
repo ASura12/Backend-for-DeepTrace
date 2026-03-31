@@ -1,6 +1,6 @@
 from serpapi import GoogleSearch
 
-API_KEY = "YOUR_API_KEY"   # 🔴 paste your key here
+API_KEY = "daf3016ef1e8ca81304ab4a3eb6f3ae97c5acfe92d973fd32ebe73f8ce0323cd"   # 🔴 paste your key here
 
 def search_google(query):
     params = {

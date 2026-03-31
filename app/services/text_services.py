@@ -1,5 +1,5 @@
 import re
-from app.model_loader import text_model
+from app.model_loader import text_model, text_model_error
 
 def preprocess_text(text):
     # Lowercase
@@ -15,6 +15,9 @@ def preprocess_text(text):
 
 
 def analyze_text(text):
+    if text_model is None:
+        return {"error": f"Text model unavailable: {text_model_error}"}
+
     clean_text = preprocess_text(text)
 
     pred = text_model.predict([clean_text])[0]

@@ -1,9 +1,11 @@
 import cv2
 import torch
-from app.model_loader import image_model
+from app.model_loader import image_model, image_model_error
 
 def preprocess_image(path):
     img = cv2.imread(path)
+    if img is None:
+        raise ValueError(f"Unable to read image: {path}")
 
     # Resize
     img = cv2.resize(img, (224, 224))
@@ -21,6 +23,9 @@ def preprocess_image(path):
 
 
 def analyze_image(path):
+    if image_model is None:
+        return {"error": f"Image model unavailable: {image_model_error}"}
+
     img = preprocess_image(path)
 
     with torch.no_grad():
