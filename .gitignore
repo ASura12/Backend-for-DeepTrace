@@ -1,0 +1,60 @@
+# Python cache and bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Build and packaging artifacts
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Test and coverage output
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Type checker / linter caches
+.mypy_cache/
+.pytype/
+.ruff_cache/
+
+# Logs and runtime artifacts
+*.log
+*.pid
+*.seed
+*.out
+*.err
+
+# Environment variable files
+.env
+.env.*
+!.env.example
+
+# IDE/editor folders
+.vscode/
+.idea/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Jupyter notebooks checkpoints
+.ipynb_checkpoints/
+
+# Machine learning model artifacts
+*.pth
+*.pt
+*.pkl
+*.joblib
+*.onnx
+
+# Local uploaded/generated data
+data/
+uploads/
