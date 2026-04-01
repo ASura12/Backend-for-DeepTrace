@@ -31,6 +31,12 @@ def analyze_image(path):
     with torch.no_grad():
         pred = image_model(img)
 
+    if pred.ndim == 2 and pred.shape[1] >= 2:
+        probs = torch.softmax(pred, dim=1)
+        fake_probability = float(probs[0, 1].item())
+    else:
+        fake_probability = float(torch.sigmoid(pred).reshape(-1)[0].item())
+
     return {
-        "fake_probability": float(pred)
+        "fake_probability": fake_probability
     }

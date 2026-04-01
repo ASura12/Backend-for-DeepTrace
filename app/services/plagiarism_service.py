@@ -10,15 +10,18 @@ def preprocess_text(text):
 
 # 🔹 Web plagiarism check (IMPROVED)
 def check_web_plagiarism(text):
-    sentences = text.split(".")
+    sentences = re.split(r"[.!?\n]+", text)
 
     matches = []
 
     for sentence in sentences[:5]:   # 🔥 limit API usage
-        sentence = sentence.strip()
+        sentence = re.sub(r"\s+", " ", sentence).strip()
 
         if len(sentence) < 40:
             continue
+
+        # Keep search queries small and stable.
+        sentence = sentence[:220]
 
         result = search_google(sentence)
 
@@ -49,7 +52,7 @@ def analyze_file(path):
 
     clean_text = preprocess_text(text)
 
-    web_status, web_source = check_web_plagiarism(clean_text)
+    web_status, web_source = check_web_plagiarism(text)
     ai_score = detect_ai_text(clean_text)
 
     return {

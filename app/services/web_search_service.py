@@ -1,16 +1,25 @@
+import os
+
 from serpapi import GoogleSearch
 
-API_KEY = "daf3016ef1e8ca81304ab4a3eb6f3ae97c5acfe92d973fd32ebe73f8ce0323cd"   # 🔴 paste your key here
+API_KEY = os.getenv("SERPAPI_API_KEY")
 
 def search_google(query):
+    if not API_KEY:
+        return None
+
     params = {
         "q": query,
         "api_key": API_KEY,
         "num": 1
     }
 
-    search = GoogleSearch(params)
-    results = search.get_dict()
+    try:
+        search = GoogleSearch(params)
+        results = search.get_dict()
+    except Exception:
+        # Network/DNS/API errors should not crash plagiarism endpoint.
+        return None
 
     if "organic_results" in results:
         return results["organic_results"][0]
