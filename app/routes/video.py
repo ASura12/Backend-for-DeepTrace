@@ -1,16 +1,17 @@
+import os
 from fastapi import APIRouter, UploadFile
-from app.services.video_services import analyze_video
+from app.services.video_services import process_video
 
 router = APIRouter()
 
 @router.post("/video")
-async def video_detect(file: UploadFile):
+async def upload_video(file: UploadFile):
+
+    os.makedirs("data", exist_ok=True)
+
     path = f"data/{file.filename}"
 
-    # Save video
     with open(path, "wb") as f:
         f.write(await file.read())
 
-    result = analyze_video(path)
-
-    return result
+    return process_video(path)
